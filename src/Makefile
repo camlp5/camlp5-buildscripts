@@ -1,4 +1,8 @@
+ifeq ($(OS),Windows_NT)
+WD=$(shell cygpath --absolute --windows .)
+else
 WD=$(shell pwd)
+endif
 TOP=..
 
 NOT_OCAMLFIND=not-ocamlfind
