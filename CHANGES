@@ -1,3 +1,28 @@
+camlp5-buildscripts Version 0.04
+-------------------
+
+* [13 Dec 2024] tiny fixup for Makefile, to support Windows.  Thanks to @tobil4sk for this!
+
+camlp5-buildscripts Version 0.03
+-------------------
+
+* [22 Jul 2023] Stupid, stupid, stupid error in ya-wrap-ocamlfind (was ignoring return-code from invoked command)
+
+  This caused errors in builds in pa_ppx* packages to be silently ignored.  Ugh.  What idiocy.  Fixed.
+  This means that older pa_ppx* packages cannot build with this package/version.  But it's only b/c they
+  enable "debugging preprocessing" by default. If that's disabled, then they build fine.  But still, what
+  a mess.
+
+  That this is such a tiny error is even more maddening.
+
+camlp5-buildscripts Version 0.02
+-------------------
+
+* [30 Jan 2023] some small changes
+  ya-wrap-ocamlfind: change syntax of header comment to "(**pp ... *)"
+  join_meta: reverse order of subdirs for wrap-subdirs, so more comprehensible to invokers
+
+  all: change bootstrap to not generate static blocks, switch to pa_ppx_regexp
 
 camlp5-buildscripts Version 0.01
 -------------------
