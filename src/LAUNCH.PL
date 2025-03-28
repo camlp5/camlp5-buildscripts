@@ -18,14 +18,6 @@ while(@ARGV) {
     shift @ARGV ;
     $verbose = 2 ;
   }
-  elsif ($ARGV[0] eq '-OCAMLPATH-pathsep') {
-    shift @ARGV ;
-    $ocamlpath_pathsep = shift @ARGV ;
-  }
-  elsif ($ARGV[0] eq '-PATH-pathsep') {
-    shift @ARGV ;
-    $path_pathsep = shift @ARGV ;
-  }
   else { last ; }
 }
 
@@ -36,17 +28,13 @@ while(@ARGV) {
 
   print STDERR "OS: <<$^O>>\n" if $main::verbose > 1;
 
-  unless (defined $ocamlpath_pathsep) {
-    if ($^O eq 'MSWin32' || $^O eq 'cygwin') {
-      $ocamlpath_pathsep = ";";
-    }
-    else {
-      $ocamlpath_pathsep = ":";
-    }
+  if ($^O eq 'MSWin32' || $^O eq 'cygwin') {
+    $ocamlpath_pathsep = ";";
   }
-  unless (defined $path_pathsep) {
-    $path_pathsep = ":" ;
+  else {
+    $ocamlpath_pathsep = ":";
   }
+  $path_pathsep = ":" ;
 
   my $newbindir = "${top}/local-install/bin";
   my $newlibdir = "${top}/local-install/lib";
