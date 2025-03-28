@@ -9,9 +9,10 @@ camlp5-buildscripts Version 0.06
 
   - Add Github CI to test it all on Windows.
 
-  - Restore the Perl script for LAUNCH (LAUNCH.PL) and the
-    system-package dependencies for it, so that when something else
-    breaks on Windows, we can switch back to Perl.
+  - On Windows only, restore the Perl script for LAUNCH (LAUNCH.PL),
+    associated tests, and the system-package dependencies for it, so
+    that when something else breaks on Windows, we can switch back to
+    Perl.
 
 camlp5-buildscripts Version 0.05
 --------------------------------

@@ -10,6 +10,9 @@ clear that OCaml's `Unix` package on Windows is .... not sufficiently
 reliable to be a replacement for Perl.  So I've resurrected the Perl
 script for `LAUNCH` (`LAUNCH.PL`).
 
+To be clear: these Perl scripts/packages are only needed on Windows;
+on UNIX, they aren't installed or required.
+
 == Installation
 
 On UNIX the Perl prereqs are unnecessary, so
