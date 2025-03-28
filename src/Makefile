@@ -12,6 +12,7 @@ OCAMLFIND=ocamlfind
 PACKAGES=re,fmt,unix,bos
 
 BIN=ya-wrap-ocamlfind$(EXE) fixin$(EXE) join_meta$(EXE) LAUNCH$(EXE)
+PL=LAUNCH.PL
 
 all: $(BIN)
 	$(MAKE) DESTDIR=$(WD)/$(TOP)/local-install/ install
@@ -31,7 +32,7 @@ LAUNCH$(EXE): LAUNCH.ml
 install::
 	mkdir -p $(DESTDIR)/lib
 	touch META
-	$(NOT_OCAMLFIND) reinstall-if-diff camlp5-buildscripts -destdir $(DESTDIR)/lib META $(BIN)
+	$(NOT_OCAMLFIND) reinstall-if-diff camlp5-buildscripts -destdir $(DESTDIR)/lib META $(BIN) $(PL)
 	rm -f META
 
 clean::

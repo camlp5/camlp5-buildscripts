@@ -1,0 +1,20 @@
+================
+Failure("LAUNCH: environment variable TOP *must* be set to use this wrapper")
+expect-this
+================
+environment variable TOP MUST be set at ../../src/LAUNCH.PL line 35.
+expect-this-too
+================
+foo
+================
+foo
+================
+bar
+================
+bar2
+================
+bar3
+================
+bar4
+================
+DONE

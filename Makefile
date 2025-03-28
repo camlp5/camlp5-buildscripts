@@ -4,12 +4,13 @@ TESTDIRS= test
 OCAMLFIND=ocamlfind
 
 all: sys
-	set -e; for i in $(TESTDIRS); do cd $$i; $(MAKE) all; cd ..; done
 
 sys:
 	set -e; for i in $(SYSDIRS); do cd $$i; $(MAKE) all; cd ..; done
 
 test: all
+	mkdir -p local-install/bin
+	set -e; for i in $(TESTDIRS); do cd $$i; $(MAKE) all; cd ..; done
 	set -e; for i in $(TESTDIRS); do cd $$i; $(MAKE) test; cd ..; done
 
 bootstrap:
