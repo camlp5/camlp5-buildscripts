@@ -1,9 +1,31 @@
 camlp5-buildscripts: Sysadmin scripts for Camlp5 projects
 =========================================================
 
+This package is at version 0.06.
+
 Sysadmin scripts written in OCaml (and Perl precursors), for use with
-Camlp5 and Camlp5-based projects.  These will allow removing
-dependency on Perl for these projects.
+Camlp5 and Camlp5-based projects.  In previous versions (<= 0.05) the
+Perl scripts had been eliminated, but with a Windows port, it became
+clear that OCaml's `Unix` package on Windows is .... not sufficiently
+reliable to be a replacement for Perl.  So I've resurrected the Perl
+script for `LAUNCH` (`LAUNCH.PL`).
+
+== Installation
+
+On UNIX the Perl prereqs are unnecessary, so
+```
+$ opam install camlp5-buildscripts
+```
+
+suffices.  On Windows, we need:
+
+* IPC::System::Simple
+* String::ShellQuote
+
+The latter is not packaged by Cygwin.  To install them, you will need
+to use the Perl `cpan` too.  You can look in
+`.github/workflows/ci-windows.yml` (the step "install Perl deps") for
+an automated exampleof how to do it.
 
 == Invocation
 
@@ -66,16 +88,17 @@ and joins them up, outputing the result to stdout.
 
 `LAUNCH`::
 
-`LAUNCH` assumes there is an environment variable `TOP` that is either
-a relative or absolute reference to the top-level directory of the
-current project.  It adds `$(TOP)/local-install/bin` to the `PATH` and
-sets `OCAMLPATH` to `$(TOP)/local-install/lib:` .  This is useful for
-running `ocamlfind` commands that use the `$(TOP)/local-install`
-directory as a local installation-directory (hence no need to pollute
-global install-directories with package installation during complex
-multi-step builds.  This means that when running tests (and multistep
-builds), we can assume that already-built packages are "installed" and
-can use `ocamlfind` to access them.
+`LAUNCH` assumes (and noisily fails if not present) there is an
+environment variable `TOP` that is either a relative or absolute
+reference to the top-level directory of the current project.  It adds
+`$(TOP)/local-install/bin` to the `PATH` and sets `OCAMLPATH` to
+`$(TOP)/local-install/lib:` -- IF these directories exist.  This is
+useful for running `ocamlfind` commands that use the
+`$(TOP)/local-install` directory as a local installation-directory
+(hence no need to pollute global install-directories with package
+installation during complex multi-step builds.  This means that when
+running tests (and multistep builds), we can assume that already-built
+packages are "installed" and can use `ocamlfind` to access them.
 
 `LAUNCH` is invoked thus:
 

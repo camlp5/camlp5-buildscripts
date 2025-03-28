@@ -1,3 +1,18 @@
+camlp5-buildscripts Version 0.06
+--------------------------------
+
+* [28 Mar 2025] More Windows fixes.
+
+  - Windows' `Unix.execvp` doesn't work like Unix's.  Replace with `Unix.system`.
+
+  - Add a bunch of tests.
+
+  - Add Github CI to test it all on Windows.
+
+  - Restore the Perl script for LAUNCH (LAUNCH.PL) and the
+    system-package dependencies for it, so that when something else
+    breaks on Windows, we can switch back to Perl.
+
 camlp5-buildscripts Version 0.05
 --------------------------------
 

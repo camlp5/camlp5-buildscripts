@@ -12,8 +12,9 @@ OCAMLFIND=ocamlfind
 PACKAGES=re,fmt,unix,bos
 
 BIN=ya-wrap-ocamlfind$(EXE) fixin$(EXE) join_meta$(EXE) LAUNCH$(EXE)
+ifeq ($(OS),Windows_NT)
 PL=LAUNCH.PL
-
+endif
 all: $(BIN)
 	$(MAKE) DESTDIR=$(WD)/$(TOP)/local-install/ install
 

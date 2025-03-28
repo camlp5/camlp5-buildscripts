@@ -10,6 +10,7 @@ ifneq ($(OS),Windows_NT)
 	diff -Bwiu t/LAUNCH/LAUNCH.sh.expected LAUNCH.sh.output
 else
 	./LAUNCH.sh
+	./LAUNCH_win.sh
 endif
 
 %: %.md
