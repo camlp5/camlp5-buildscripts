@@ -7,14 +7,10 @@ let push l x = (l := x :: !l)
 
 let verbose = ref false ;;
 let veryverbose = ref false ;;
-let ocamlpath_pathsep = ref "" ;;
-let path_pathsep = ref "" ;;
 let cmd = ref [] ;;
 Arg.(parse [
          "-v", (Set verbose),"verbose output"
        ; "-vv", Set veryverbose, "very verbose output"
-       ; "-OCAMLPATH-pathsep",Set_string ocamlpath_pathsep,"path-separator for OCAMLPATH"
-       ; "-PATH-pathsep",Set_string path_pathsep,"path-separator for PATH"
        ; "--", Rest_all (fun l -> cmd := !cmd @ l), "the command"
        ]
        (fun s -> cmd := !cmd @ [s])
@@ -30,30 +26,28 @@ let main () =
     match OS.Env.var "TOP" with
       Some v -> Ok v
     | None -> Error (`Msg "LAUNCH: environment variable TOP *must* be set to use this wrapper") in
-  if !ocamlpath_pathsep = "" then
-    ocamlpath_pathsep :=
-      (match Sys.os_type with
-         "Unix" -> ":"
-       | _ -> ";") ;
-  if !path_pathsep = "" then
-    path_pathsep :=
-      (match Sys.os_type with
-         "Unix" -> ":"
-       | _ -> ";") ;
+  let ocamlpath_pathsep =
+    (match Sys.os_type with
+       "Unix" -> ":"
+     | _ -> ";") in
+  let path_pathsep =
+    (match Sys.os_type with
+       "Unix" -> ":"
+     | _ -> ";") in
 
   let newbindir = [%pattern {|${top}/local-install/bin|}] in
   let newlibdir = [%pattern {|${top}/local-install/lib|}] in
   let* () =
     if exists_directory newbindir then
       let* path = OS.Env.req_var "PATH" in
-      let newpath = [%pattern {|${newbindir}${!path_pathsep}${path}|}] in
+      let newpath = [%pattern {|${newbindir}${path_pathsep}${path}|}] in
           if !veryverbose then
             Fmt.(pf stderr "LAUNCH: PATH=%a\n%!" Dump.string newpath) ;
           OS.Env.set_var "PATH" (Some newpath)
     else Ok() in
   let* () =
     if exists_directory newlibdir then
-      let newcamlpath = [%pattern {|${newlibdir}${!ocamlpath_pathsep}|}] in
+      let newcamlpath = [%pattern {|${newlibdir}${ocamlpath_pathsep}|}] in
           if !veryverbose then
             Fmt.(pf stderr "LAUNCH: OCAMLPATH=%a\n%!" Dump.string newcamlpath) ;
       OS.Env.set_var "OCAMLPATH" (Some newcamlpath)

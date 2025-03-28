@@ -2,3 +2,4 @@
 local-install
 *.bak
 *.NEW
+*.o
