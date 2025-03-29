@@ -5,11 +5,11 @@ TESTS=LAUNCH join_meta ya-wrap-ocamlfind
 all:
 
 test: $(TESTS)
+	./LAUNCH.sh
 	./LAUNCH.sh > LAUNCH.sh.output 2>&1
 ifneq ($(OS),Windows_NT)
 	diff -Bwiu t/LAUNCH/LAUNCH.sh.expected LAUNCH.sh.output
 else
-	./LAUNCH.sh
 	./LAUNCH_win.sh
 endif
 
