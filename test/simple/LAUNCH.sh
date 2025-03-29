@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 echo "================"
 ../../src/LAUNCH echo foo  || echo expect-this
