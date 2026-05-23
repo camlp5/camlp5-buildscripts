@@ -1,3 +1,8 @@
+camlp5-buildscripts Version 0.07
+--------------------------------
+
+* [23 May 2026] minor changes to allow coexisting w/bos 0.3.0, ocaml 5.5
+
 camlp5-buildscripts Version 0.06
 --------------------------------
 
