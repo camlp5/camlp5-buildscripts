@@ -17,7 +17,7 @@ endif
 	rm -f $<.corrected
 	ocaml-mdx test --force-output $<
 ifneq ($(OS),Windows_NT)
-	test '!' -f $<.corrected || diff -I '```' -Bwiu $< $<.corrected
+	test '!' -f $<.corrected || diff -I stublibs -I '```' -Bwiu $< $<.corrected
 endif
 
 clean::
