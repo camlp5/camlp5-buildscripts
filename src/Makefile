@@ -9,7 +9,7 @@ TOP=..
 
 NOT_OCAMLFIND=not-ocamlfind
 OCAMLFIND=ocamlfind
-PACKAGES=re,fmt,unix,bos
+PACKAGES=re,fmt,unix,bos,rresult
 
 BIN=ya-wrap-ocamlfind$(EXE) fixin$(EXE) join_meta$(EXE) LAUNCH$(EXE)
 ifeq ($(OS),Windows_NT)

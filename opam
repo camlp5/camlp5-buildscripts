@@ -27,6 +27,7 @@ depends: [
   "fmt"
   "re" { >= "1.10.4" }
   "bos" { >= "0.2.1" }
+  "rresult" { >= "0.7.0" }
 ]
 build: [
   [make "sys"]
