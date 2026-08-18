@@ -1,3 +1,14 @@
+camlp5-buildscripts Version 0.08
+--------------------------------
+
+* [17 Aug 2026]
+
+  * update pa_ppx version of source for recent changes to pa_ppx_regexp
+
+  * update ya-wrap-ocamlfind with a "-v" flag, so that without it, it doesn't
+    print out the commands it executes.  For quietness, b/c geeeeez it was
+    so, so, so noisy.
+
 camlp5-buildscripts Version 0.07
 --------------------------------
 

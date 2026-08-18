@@ -64,11 +64,16 @@ let discover_args f =
 
 let () =
   let (cmd, files) = (Array.to_list Sys.argv |> List.tl) |> split_args in
+  let (cmd, verbose) =
+    match cmd with
+      "-v" :: tl -> tl, true
+    | _ -> cmd, false
+  in
   let cmd = Filename.quote_command (List.hd cmd) (List.tl cmd) in
   List.iter
     (fun f ->
        let extra = discover_args f in
        let cmd = String.concat "" [cmd; " "; extra; " "; f] in
-       Printf.fprintf stderr "%s\n%!" cmd;
+       if verbose then Printf.fprintf stderr "%s\n%!" cmd;
        let rc = Sys.command cmd in if rc <> 0 then exit rc)
     files

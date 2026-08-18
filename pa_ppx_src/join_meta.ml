@@ -33,7 +33,7 @@ let direct_include = ref ""
 let wrap_subdirs = ref []
 
 let split2 ~msg s =
-  match [%match {|^([^:]+):([^:]+)$|} / strings (!1,!2)] s with
+  match [%match {|^([^:]+):([^:]+)$|} / strings (!1,!2) dynamic] s with
     Some (name, subdir) -> (name, subdir)
   | _ -> failwith Fmt.(str "%s: invalid arg <<%s>>" msg s)
 ;;
@@ -53,10 +53,10 @@ Arg.(parse [
 
 let indent n txt =
   let pfx = String.make n ' ' in
-  [%subst {|^|} / {|${pfx}|} / g m] txt
+  [%subst {|^|} / {|${pfx}|} / g m dynamic] txt
 
 let fix txt =
-  let l = [%split {|\s*,\s*|}] txt in
+  let l = [%split {|\s*,\s*|} / dynamic] txt in
   let f s =
     match List.assoc s !pkgmap with
       exception Not_found -> s
@@ -64,16 +64,16 @@ let fix txt =
   let ol =
     l
     |> List.map (fun p ->
-           [%subst {|^([^.]+)|} / {| f $1$ |} / e] p
+           [%subst {|^([^.]+)|} / {| f $1$ |} / e dynamic] p
          ) in
   String.concat "," ol
 
 let fix0 txt =
-  [%subst {|"([^"]+)"|} / {| "\"" ^ fix($1$) ^ "\"" |} / e] txt
+  [%subst {|"([^"]+)"|} / {| "\"" ^ fix($1$) ^ "\"" |} / e dynamic] txt
 
 
 let fixdeps txt =
-  [%subst {|^(.*require.*)$|} / {| fix0($1$) |} / m g e] txt
+  [%subst {|^(.*require.*)$|} / {| fix0($1$) |} / m g e dynamic] txt
 
 let capturex (cmd, args) =
   let channel = Unix.open_process_args_in cmd args in

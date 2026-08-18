@@ -42,7 +42,7 @@ let fix_interpreter ~f (exedir, exename) =
      to_string v
 
 let fixin_contents ~f txt =
-  let txt = [%subst {|^#!([\S]+/)?([\S]+)|} / {|"#!" ^ (fix_interpreter ~f ($1$, $2$))|} /s e] txt in
+  let txt = [%subst {|^#!([\S]+/)?([\S]+)|} / {|"#!" ^ (fix_interpreter ~f ($1$, $2$))|} /s e dynamic] txt in
   Ok txt
 
 let fixin1 f =

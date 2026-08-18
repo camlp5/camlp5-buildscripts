@@ -1,7 +1,7 @@
 camlp5-buildscripts: Sysadmin scripts for Camlp5 projects
 =========================================================
 
-This package is at version 0.07.
+This package is at version 0.08.
 
 Sysadmin scripts written in OCaml (and Perl precursors), for use with
 Camlp5 and Camlp5-based projects.  In previous versions (<= 0.05) the

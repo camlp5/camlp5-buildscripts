@@ -5,7 +5,7 @@ bootstrap: ../src/join_meta.ml ../src/ya_wrap_ocamlfind.ml ../src/fixin.ml ../sr
 
 
 ../src/%.ml: %.ml
-	$(NOT_OCAMLFIND) preprocess -package pa_ppx_regexp,camlp5.pr_o -ppopt -pa_ppx_regexp-nostatic -syntax camlp5o $< > $@.NEW && \
+	$(NOT_OCAMLFIND) preprocess -package pa_ppx_regexp,camlp5.pr_o -syntax camlp5o $< > $@.NEW && \
 	mv $@.NEW $@
 
 .SUFFIXES: .ml
